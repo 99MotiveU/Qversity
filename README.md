@@ -1,6 +1,6 @@
 # Qversity
 
-* **Skills**
+**Skills**
   
 * JAVA 17 
 * Spring Boot 3.5.6 (gradle / spring data / spring security)
