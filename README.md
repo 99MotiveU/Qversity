@@ -12,4 +12,5 @@
 * AWS
 
 **Project Members**
-|(minho00123)[https://github.com/minho00123] | (hwa3845)[https://github.com/hwa3845] |
+* (minho00123)[https://github.com/minho00123]
+* (hwa3845)[https://github.com/hwa3845]
