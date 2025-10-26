@@ -1,82 +1,98 @@
 import React from 'react';
 
-// Placeholder data for a single study set
-const studySet = {
-  id: 1,
-  title: 'Advanced English Vocabulary',
-  description: 'A collection of 50 advanced words for GRE and TOEFL preparation.',
-  author: 'John Doe',
-  terms: [
-    { id: 1, term: 'Abnegation', definition: 'The act of renouncing or rejecting something.' },
-    { id: 2, term: 'Aggrandize', definition: 'Increase the power, status, or wealth of.' },
-    { id: 3, term: 'Alacrity', definition: 'Bris, cheerful readiness.' },
-    { id: 4, term: 'Anachronistic', definition: 'Belonging to a period other than that being portrayed.' },
-    { id: 5, term: 'Archetypal', definition: 'Very typical of a certain kind of person or thing.' },
-    { id: 6, term: 'Ascetic', definition: 'Characterized by severe self-discipline and abstention from all forms of indulgence.' },
-    { id: 7, term: 'Beguile', definition: 'Charm or enchant (someone), sometimes in a deceptive way.' },
-    { id: 8, term: 'Blandishment', definition: 'A flattering or pleasing statement or action used to persuade someone gently to do something.' },
-  ],
-};
+// Placeholder data for study sets in the 'Programming' category
+const studySets = [
+  {
+    id: 1,
+    title: 'JavaScript 기초',
+    description: '웹 개발에 필요한 핵심 개념을 학습합니다.',
+    icon: 'JS', // Placeholder for icon
+    stats: { total: 20, learned: 8, toReview: 5, new: 7 },
+  },
+  {
+    id: 2,
+    title: 'Python 기초',
+    description: '프로그래밍의 기초와 데이터 분석에 필요한 개념을 학습합니다.',
+    icon: 'PY', // Placeholder for icon
+    stats: { total: 18, learned: 12, toReview: 3, new: 3 },
+  },
+  {
+    id: 3,
+    title: 'React 기초',
+    description: '컴포넌트, 상태 관리, Hooks 등 현대적인 웹 앱 개발 개념을 학습합니다.',
+    icon: 'RE', // Placeholder for icon
+    stats: { total: 22, learned: 5, toReview: 2, new: 15 },
+  },
+];
 
-// Study mode button component
-function StudyModeButton({ name, icon }) {
-  return (
-    <button className="flex flex-col items-center justify-center p-4 border rounded-lg bg-white hover:bg-gray-100 transition-colors space-y-2">
-      {/* Placeholder for icon */}
-      <div className="w-8 h-8 bg-gray-300 rounded-md"></div>
-      <span className="font-semibold text-gray-700">{name}</span>
-    </button>
-  );
-}
+// Stat item component for the card
+const StatItem = ({ label, value }) => (
+  <div>
+    <p className="text-xs text-gray-500">{label}</p>
+    <p className="font-bold text-dark-color">{value}장</p>
+  </div>
+);
 
+// Study Set Card component with stacked effect
+const StudySetCard = ({ set }) => (
+  <div className="relative cursor-pointer group" style={{ perspective: '1000px' }}>
+    <div className="relative w-full h-40 transform-style-3d transition-transform duration-500 group-hover:-translate-y-1">
+      {[...Array(3)].map((_, i) => (
+        <div 
+          key={i} 
+          className="absolute w-full h-full bg-white rounded-lg shadow-md border border-gray-200"
+          style={{ transform: `translateZ(${-i * 4}px) translateY(${-i * 4}px)` }}
+        ></div>
+      ))}
+      <div className="absolute w-full h-full bg-white rounded-lg shadow-lg border border-gray-200 flex p-1">
+        <div className="w-40 bg-gray-50 rounded-l-lg flex flex-col items-center justify-center p-4">
+          <div className="text-3xl font-bold text-primary">{set.icon}</div>
+          <h3 className="text-lg font-bold text-center text-dark-color mt-2">{set.title}</h3>
+        </div>
+        <div className="flex-1 p-4 flex flex-col justify-between">
+          <p className="text-sm text-gray-600">{set.description}</p>
+          <div className="grid grid-cols-4 gap-2 text-sm">
+            <StatItem label="총 카드" value={set.stats.total} />
+            <StatItem label="학습한 카드" value={set.stats.learned} />
+            <StatItem label="복습할 카드" value={set.stats.toReview} />
+            <StatItem label="새 카드" value={set.stats.new} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Detail Page Component (now Study Set List)
 export default function DetailPage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header (Re-using the same structure as MainPage for consistency) */}
+    <div className="font-sans min-h-screen bg-light-color">
+      {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-3">
-            <div className="text-2xl font-bold text-blue-600">Qversity</div>
-            <div className="flex items-center space-x-4">
-              <button type="button" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-semibold">
-                Create set
-              </button>
-              <div className="w-10 h-10 rounded-full bg-gray-300 cursor-pointer"></div>
-            </div>
+            <div className="text-2xl font-bold text-primary">Qversity</div>
+            <div className="w-10 h-10 rounded-full bg-gray-300 cursor-pointer"></div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto p-4 md:p-8">
-        {/* Set Title and Info */}
+      <main className="container mx-auto p-6 md:p-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">{studySet.title}</h1>
-          <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full bg-gray-300 mr-3"></div>
-            <span className="text-md text-gray-600">Created by <span className="font-bold">{studySet.author}</span></span>
-          </div>
+          <button className="text-gray-600 hover:text-primary font-semibold mb-4">
+            &larr; 메인으로 돌아가기
+          </button>
+          <h1 className="text-4xl font-bold text-dark-color flex items-center">
+            <span className="text-green-500 mr-3">&#x2F;&lt;&gt;</span>
+            프로그래밍 플래시카드
+          </h1>
         </div>
 
-        {/* Study Modes */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <StudyModeButton name="Flashcards" />
-          <StudyModeButton name="Learn" />
-          <StudyModeButton name="Test" />
-          <StudyModeButton name="Match" />
-        </div>
-
-        {/* Terms List */}
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Terms in this set ({studySet.terms.length})</h2>
-          <div className="space-y-4">
-            {studySet.terms.map(term => (
-              <div key={term.id} className="flex p-4 border rounded-md">
-                <div className="w-1/3 font-medium text-gray-700">{term.term}</div>
-                <div className="w-2/3 text-gray-600">{term.definition}</div>
-              </div>
-            ))}
-          </div>
+        <div className="space-y-6">
+          {studySets.map(set => (
+            <StudySetCard key={set.id} set={set} />
+          ))}
         </div>
       </main>
     </div>
