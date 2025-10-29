@@ -10,6 +10,7 @@
 * Vite
 * TailwindCSS
 * AWS
+* FSRS Algorithm (RUST)
 
 **Project Members**
 <table>
