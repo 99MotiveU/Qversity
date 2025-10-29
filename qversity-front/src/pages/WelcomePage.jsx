@@ -23,10 +23,10 @@ export default function WelcomePage() {
             <a href="#" className="hover:text-primary">가격</a>
           </nav>
           <div className="hidden md:flex items-center space-x-2">
-            <button type="button" className="px-4 py-2 rounded-md hover:bg-gray-100">로그인</button>
-            <button type="button" className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary">
+            <a href="/login" className="px-4 py-2 rounded-md hover:bg-gray-100">로그인</a>
+            <a href="/login" className="bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary">
               무료로 시작하기
-            </button>
+            </a>
           </div>
           <div className="md:hidden">
             <button>Menu</button> {/* Placeholder for mobile menu */}

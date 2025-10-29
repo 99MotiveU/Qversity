@@ -1,15 +1,22 @@
 import React from 'react';
 
 // Reusable Social Login Button Component
-const SocialButton = ({ provider, bgColor, textColor, icon, children }) => (
-  <button
-    type="button"
-    className={`w-full flex items-center justify-center py-3 px-4 rounded-lg font-semibold transition-transform transform hover:scale-105 ${bgColor} ${textColor}`}
-  >
-    {icon}
-    <span className="ml-3">{children}</span>
-  </button>
-);
+const SocialButton = ({ provider, bgColor, textColor, icon, children }) => {
+  const handleSocialLogin = () => {
+    window.location.href = `/oauth2/authorization/${provider.toLowerCase()}`;
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleSocialLogin}
+      className={`w-full flex items-center justify-center py-3 px-4 rounded-lg font-semibold transition-transform transform hover:scale-105 ${bgColor} ${textColor}`}
+    >
+      {icon}
+      <span className="ml-3">{children}</span>
+    </button>
+  );
+};
 
 // Login Page Component
 export default function LoginPage() {
