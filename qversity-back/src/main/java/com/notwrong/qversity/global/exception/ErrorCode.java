@@ -1,18 +1,24 @@
 package com.notwrong.qversity.global.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
+@AllArgsConstructor
 public enum ErrorCode {
 
-    COMMON_BAD_REQUEST(ErrorCode.valueOf("COMMON_BAD_REQUEST"), "잘못된 요청입니다.");
+    // Common
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "Invalid Input Value"),
+    METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "Method Not Allowed"),
+    HANDLE_ACCESS_DENIED(HttpStatus.FORBIDDEN, "Access is Denied"),
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Server Error"),
 
-    private final ErrorCode code;
+    // User
+    DUPLICATE_NICKNAME(HttpStatus.BAD_REQUEST, "Nickname is already taken"),
+    SOCIAL_LOGIN_NOT_FOUND(HttpStatus.NOT_FOUND, "Social login information not found"),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User not found");
+
+    private final HttpStatus status;
     private final String message;
-
-    ErrorCode(ErrorCode code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 }

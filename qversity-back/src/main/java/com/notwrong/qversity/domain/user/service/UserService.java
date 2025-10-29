@@ -7,5 +7,7 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> findBySocialId(Long socialId);
 
+    void registerUser(String nickname, String providerUniqueId);
+
     // TODO: createUser
 }

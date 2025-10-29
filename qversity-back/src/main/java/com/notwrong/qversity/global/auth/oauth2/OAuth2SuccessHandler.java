@@ -83,11 +83,21 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                String registrationId,
                                HttpServletResponse response) throws IOException {
 
-        socialLoginService.createSocialLogin(email,
+        SocialLogin socialLogin = socialLoginService.createSocialLogin(email,
                 OAuth2Provider.valueOf(registrationId.toUpperCase()), providerUniqueId);
 
-        // TODO: UserService 불러와서 정보 저장
-        response.sendRedirect(frontendUrl + "/");
+        String nickname = RandomGenerator.generateRandomNickname();
+
+        // Register the user with the generated nickname
+        userService.registerUser(nickname, providerUniqueId);
+
+        // Proceed to login the newly registered user
+        processUserLogin(userService.findBySocialId(socialLogin.getSocialId()).get().getUserId(),
+                nickname,
+                providerUniqueId,
+                registrationId,
+                socialLogin.getSocialId(),
+                response);
     }
 
     private void processUserLogin(Long userId, String nickname, String providerUniqueId,
